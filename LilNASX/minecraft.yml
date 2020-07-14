@@ -1,0 +1,19 @@
+---
+version: "2"
+services:
+  minecraft-server:
+    image: itzg/minecraft-server:multiarch
+    container_name: minecraft
+    network_mode: host
+    environment:
+      - PUID=998
+      - PGID=100
+      - EULA=TRUE
+      - VERSION=LATEST
+      - MEMORY=2G
+      - ANNOUNCE_PLAYER_ACHIEVEMENTS=true
+    ports:
+      - 25565:25565
+    volumes:
+      - /srv/dev-disk-by-label-Data/Minecraft/ServerJE:/data
+    restart: unless-stopped

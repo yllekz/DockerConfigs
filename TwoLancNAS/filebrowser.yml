@@ -1,0 +1,12 @@
+version: "2.1"
+services:
+
+  filebrowser:
+    image: filebrowser/filebrowser:v2.4.0-pi
+    volumes:
+        - /srv/dev-disk-by-label-Data:/srv
+        - /etc/config/filebrowser/filebrowser.db:/config/filebrowser/database.db
+        - /etc/config/filebrowser/filebrowser.json:/config/filebrowser/filebrowser.json
+    ports:
+        - 8407:80
+    restart: unless-stopped
