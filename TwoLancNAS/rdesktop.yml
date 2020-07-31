@@ -1,0 +1,20 @@
+---
+#Untested!
+version: "2"
+services:
+  rdesktop:
+    image: linuxserver/rdesktop
+    container_name: rdesktop
+    network_mode: host
+    privileged: true #optional
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/New_York
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock #optional
+      - /etc/config/rdesktop:/config #optional
+    ports:
+      - 3389:3389
+    shm_size: 1gb #optional, min 1gb, <= 2gb
+    restart: unless-stopped
