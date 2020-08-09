@@ -12,4 +12,5 @@ services:
        - VERSION=docker
     volumes:
        - /etc/config/plex:/config
-       - /srv/dev-disk-by-label-Cruzer32/Videos:/Videos
+       - /srv/dev-disk-by-label-EVO256/Photos:/Photos
+       - /srv/dev-disk-by-label-EVO256/Videos:/Videos
