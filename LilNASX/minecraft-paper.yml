@@ -1,0 +1,20 @@
+---
+version: "2"
+services:
+  minecraft-server:
+    image: itzg/minecraft-server:multiarch
+    container_name: minecraft
+    network_mode: host
+    environment:
+      - PUID=998
+      - PGID=100
+      - EULA=TRUE
+      - VERSION=1.16.2 #LATEST is supported but Paper version may lag behind so hardcode this
+      - MEMORY=2G
+      - ANNOUNCE_PLAYER_ACHIEVEMENTS=true
+      - TYPE=PAPER
+    ports:
+      - 25565:25565
+    volumes:
+      - /srv/dev-disk-by-label-Data/Minecraft/ServerJEPaper:/data
+    restart: unless-stopped
