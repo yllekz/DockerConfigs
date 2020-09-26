@@ -1,0 +1,17 @@
+#Lightweight Music Server
+#After deploying, config the login, and then set teh "media root directory to be /music"
+---
+version: "2.1"
+services:
+  beets:
+    image: epoupon/lms:latest
+    container_name: lms
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/lms:/lms
+      - /srv/dev-disk-by-label-Data/Audio/Music:/music:ro
+    ports:
+      - 5082:5082
+    restart: unless-stopped
