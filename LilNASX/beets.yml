@@ -1,0 +1,17 @@
+---
+version: "2.1"
+services:
+  beets:
+    image: linuxserver/beets
+    container_name: beets
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/beets:/config
+      - /srv/dev-disk-by-label-Data/Audio:/music
+      - /srv/dev-disk-by-label-Data/Public:/downloads
+    ports:
+      - 8337:8337
+    restart: unless-stopped
