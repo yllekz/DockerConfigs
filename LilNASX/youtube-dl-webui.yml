@@ -1,0 +1,22 @@
+#Untested and not working yet
+---
+version: "2.1"
+services:
+  qbittorrent:
+    image: shlokpatel/youtube-dl-gui
+    container_name: youtube-dl-gui
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/youtube-dl-gui:/srv/youtube_dl
+      #- /srv/dev-disk-by-label-Data/Public/youtube-dl-gui/errors.log:/usr/src/youtube_dl_webui/errors.log
+      #- /srv/dev-disk-by-label-Data/config/youtube-dl-gui:/srv/youtube_dl_webui
+      #- /srv/dev-disk-by-label-Data/config/youtube-dl-gui:/srv/youtube_dl
+      #- /srv/dev-disk-by-label-Data/config/youtube-dl-gui:/usr/src
+      #- /srv/dev-disk-by-label-Data/config/youtube-dl-gui:/usr/src/youtube-dl-gui
+      #- /srv/dev-disk-by-label-Data/config/youtube-dl-gui/errors.log/:/usr/src/youtube_dl_webui/errors.log
+      #- /srv/dev-disk-by-label-Data/config/youtube-dl-gui/youtube_dl_webui.db:/srv/youtube_dl/youtube_dl_webui.db
+    ports:
+      - 5000:5000
+    restart: unless-stopped
