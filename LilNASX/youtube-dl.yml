@@ -1,0 +1,15 @@
+#Works* but developer might need to update youtube-dl on this
+---
+version: "2.1"
+services:
+  qbittorrent:
+    image: cascha42/ytdl-webserver
+    container_name: ytdl-webserver
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /srv/dev-disk-by-label-Data/Public/ytdl-webserver:/home/app/public/temp
+    ports:
+      - 5000:3000
+    restart: unless-stopped
