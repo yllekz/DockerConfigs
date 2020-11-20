@@ -1,0 +1,28 @@
+#docker run -p 6080:80 -v /dev/shm:/dev/shm dorowu/ubuntu-desktop-lxde-vnc
+#https://github.com/fcwu/docker-ubuntu-vnc-desktop/
+#"This image does not support network mode as host."
+#Running this in bridge mode results in nginx flapping and web not working
+#Works with VNC and web when in bridge mode
+#Web access: http://host:6080
+#VNC: just connect to the host name
+version: "2"
+services:
+  rdesktop:
+    image: dorowu/ubuntu-desktop-lxde-vnc:bionic-armhf
+    container_name: ubuntudesktop
+    network_mode: bridge
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/New_York
+      - VNC_PASSWORD=mypassword #straight VNC password
+      - HTTP_PASSWORD=mypassword #first web password
+      - USER=steve #web username prompt
+      - PASSWORD=password #VNC and second web password
+    volumes:
+      #- /dev/shm:/dev/shm
+      - /srv/dev-disk-by-label-Data/config/ubuntu-desktop-lxde-vnc:/dev/shm
+    ports:
+      - 6080:80
+      - 5900:5900
+    restart: unless-stopped
