@@ -8,7 +8,7 @@
 ---
 version: "2.1"
 services:
-  beets:
+  airsonic:
     image: linuxserver/airsonic:latest
     container_name: airsonic
     environment:
@@ -16,10 +16,9 @@ services:
       - PGID=100
     volumes:
       - /srv/dev-disk-by-label-Data/config/airsonic:/config
-      - /srv/dev-disk-by-label-Data/Audio/Music:/music
-      - /srv/dev-disk-by-label-Data/Audio/Music/Playlists:/playlists
-      - /srv/dev-disk-by-label-Data/Audio/Music/Podcasts:/podcasts
-      #- /srv/dev-disk-by-label-Data/Audio:/media
+      - /srv/dev-disk-by-label-Data/Audio/Music:/music:ro
+      - /srv/dev-disk-by-label-Data/Audio/Music/Playlists:/playlists:rw
+      - /srv/dev-disk-by-label-Data/Audio/Podcasts/airsonic:/podcasts:rw
     ports:
       - 4040:4040/tcp
     restart: unless-stopped
