@@ -1,0 +1,25 @@
+#Airsonic is a free, web-based media streamer, providing ubiqutious access to your music.
+#Use it to share your music with friends, or to listen to your own music while at work.
+#You can stream to multiple players simultaneously, for instance to one player in your kitchen and another in your living room.
+#Default username/password when container is built is admin/admin
+#https://github.com/airsonic/airsonic
+#https://airsonic.github.io/docs/install/docker/
+#Tested and working
+---
+version: "2.1"
+services:
+  beets:
+    image: linuxserver/airsonic:latest
+    container_name: airsonic
+    environment:
+      - PUID=998
+      - PGID=100
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/airsonic:/config
+      - /srv/dev-disk-by-label-Data/Audio/Music:/music
+      - /srv/dev-disk-by-label-Data/Audio/Music/Playlists:/playlists
+      - /srv/dev-disk-by-label-Data/Audio/Music/Podcasts:/podcasts
+      #- /srv/dev-disk-by-label-Data/Audio:/media
+    ports:
+      - 4040:4040/tcp
+    restart: unless-stopped
