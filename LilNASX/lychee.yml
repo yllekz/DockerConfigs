@@ -1,0 +1,27 @@
+#Lychee is a free photo-management tool, which runs on your server or web-space.
+#Installing is a matter of seconds. Upload, manage and share photos like from a native application.
+#Lychee comes with everything you need and all your photos are stored securely."
+#https://hub.docker.com/r/linuxserver/lychee
+#https://github.com/linuxserver/docker-lychee
+#Partially tested, needs work. Initial setup throws errors.
+---
+version: "2.1"
+services:
+  lychee:
+    image: ghcr.io/linuxserver/lychee
+    container_name: lychee
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/New_York
+      #- DB_HOST=<yourdbhost>
+      #- DB_USERNAME=<yourdbuser>
+      #- DB_PASSWORD=<yourdbpass>
+      #- DB_DATABASE=monica
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/lychee:/config
+      - /srv/dev-disk-by-label-Data/Photos:/pictures
+    ports:
+      #- 80:80
+      - 8099:80
+    restart: unless-stopped
