@@ -17,7 +17,7 @@ services:
     volumes:
       - /srv/dev-disk-by-label-Data/config/airsonic:/config
       - /srv/dev-disk-by-label-Data/Audio/Music:/music:ro
-      - /srv/dev-disk-by-label-Data/Audio/Music/Playlists:/playlists:rw
+      - /srv/dev-disk-by-label-Data/Audio/Music/Playlists/Airsonic:/playlists:rw
       - /srv/dev-disk-by-label-Data/Audio/Podcasts/airsonic:/podcasts:rw
     ports:
       - 4040:4040/tcp
