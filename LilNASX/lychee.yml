@@ -4,6 +4,20 @@
 #https://hub.docker.com/r/linuxserver/lychee
 #https://github.com/linuxserver/docker-lychee
 #Partially tested, needs work. Initial setup throws errors.
+#Requires a database (yobasystems/alpine-mariadb:latest), see https://www.youtube.com/watch?v=E9ajGRn3AfQ
+#https://dbtechreviews.com/2020/08/lychee-installed-in-docker-with-portainer/
+#The only way we can get the DB_HOST variable is by deploying the container
+#and then going to the database's Container Console/connecting as root
+#Once you've done that, you should see a black screen. On that screen, type the following:
+#hostname -I
+#And you should see the IP in the console output.
+#If the console is not connecting, go to the DB container, click "inspect" on the container and go to "text" to get the IP.
+#Back in the Portainer Stack, put the resulting IP Address as the DB_HOST (example: 172.17.0.6).
+#Then press the "update the stack" button.
+#Tested/needs work.
+#App takes a while to start up.
+#Uploading a photo results in a read/write error.
+#Not sure how practical this is, as it won't import existing photos....
 ---
 version: "2.1"
 services:
@@ -14,14 +28,27 @@ services:
       - PUID=998
       - PGID=100
       - TZ=America/New_York
-      #- DB_HOST=<yourdbhost>
-      #- DB_USERNAME=<yourdbuser>
-      #- DB_PASSWORD=<yourdbpass>
-      #- DB_DATABASE=monica
+      - DB_HOST=changemelater #This will be the IP of your DB container, pulled after the DB container is deployed
+      - DB_USERNAME=lychee
+      - DB_PASSWORD=lychee
+      - DB_DATABASE=lychee
     volumes:
       - /srv/dev-disk-by-label-Data/config/lychee:/config
-      - /srv/dev-disk-by-label-Data/Photos:/pictures
+      - /srv/dev-disk-by-label-Data/Photos/lycheetest:/pictures:rw
     ports:
-      #- 80:80
-      - 8099:80
+      - 8124:80
+    links:
+      - db:db
     restart: unless-stopped
+
+  db:
+    image: yobasystems/alpine-mariadb:latest
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: unless-stopped
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/lycheedb:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=lychee
+      - MYSQL_PASSWORD=lychee
+      - MYSQL_DATABASE=lychee
+      - MYSQL_USER=lychee
