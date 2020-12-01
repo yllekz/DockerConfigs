@@ -1,10 +1,12 @@
+#default login admin/admin
 version: "2.1"
 services:
 
   filebrowser:
-    image: filebrowser/filebrowser:v2.6.2-pi
+    image: filebrowser/filebrowser:pi
     volumes:
         - /srv/dev-disk-by-label-EVO256:/srv
+        - /etc/config:/config
         - /etc/config/filebrowser/filebrowser.db:/config/filebrowser/database.db
         - /etc/config/filebrowser/filebrowser.json:/config/filebrowser/filebrowser.json
     ports:
