@@ -6,7 +6,7 @@ services:
     image: filebrowser/filebrowser:pi
     volumes:
         - /srv/dev-disk-by-label-Data:/srv
-        - /srv/dev-disk-by-label-Data/config:/config
+        - /srv/dev-disk-by-label-Data/config/filebrowser:/config
         - /srv/dev-disk-by-label-Data/config/filebrowser/filebrowser.db:/config/filebrowser/database.db
         - /srv/dev-disk-by-label-Data/config/filebrowser/filebrowser.json:/config/filebrowser/filebrowser.json
     ports:
