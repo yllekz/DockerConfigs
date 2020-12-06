@@ -1,0 +1,31 @@
+#ich777/chrome
+#https://hub.docker.com/r/ich777/chrome
+#https://github.com/ich777/docker-chrome
+#Support Thread: https://forums.unraid.net/topic/83786-support-ich777-application-dockers/
+#The container will check on every restart if there is a newer version available.
+#RESOLUTION: You can also change the resolution from the WebGUI,
+#to do that simply click on 'Show more settings...'
+#(on a resolution change it can occour that the screen is not filled entirely with the chrome window, simply restart the container and it will be fullscreen again).
+#Webgui address: http://[SERVERIP]:[PORT]/vnc_auto.html
+#Example: http://10.0.0.7/8099/vnc_auto.html
+#Tested/working, but laggy. Restart container if first run is unusable.
+---
+version: "2.1"
+services:
+  chrome:
+    image: ich777/chrome:latest
+    container_name: chrome
+    environment:
+      - PUID=998 #User identifier
+      - PGID=100 #Group identifier
+      - CUSTOM_RES_W=1280 #preferred screen width
+      - CUSTOM_RES_H=768 #preferred screen height
+      - DATA_PERM=770 #Data permissions for /chrome folder
+      - DATA_DIR=/chrome #Folder for chrome
+    ports:
+      - 8097:8080
+      #- 8080:8080
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/chrome:/chrome
+      #- /mnt/cache/appdata/chrome:/chrome
+    restart: unless-stopped
