@@ -1,0 +1,19 @@
+#This is untested and still theoretical!
+#Example: https://github.com/kylemanna/docker-openvpn/blob/e83f0118e02a897cd001ac819608efd4144795ad/docs/docker-compose.md
+#https://github.com/giggio/docker-openvpn-arm
+---
+version: "2.1"
+services:
+  openvpn:
+    image: giggio/openvpn-arm
+    container_name: openvpn
+    restart: unless-stopped
+    environment:
+      - DEBUG=0
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/openvpn:/etc/openvpn
+    ports:
+        - "9194:1194/udp"
+    cap_add:
+        - NET_ADMIN
+    user: udp://7sirelle.duckdns.org
