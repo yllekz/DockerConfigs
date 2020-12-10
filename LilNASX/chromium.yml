@@ -1,0 +1,25 @@
+#https://hub.docker.com/r/monstrenyatko/chromium
+#https://github.com/monstrenyatko/docker-chromium
+#Open http://yourservername:9080 in web browser.
+#Tested/working
+---
+version: "2.1"
+services:
+  chromium:
+    image: monstrenyatko/chromium:latest
+    container_name: chromium
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      #- APP_UID=998 #User identifier
+      #- APP_GID=100 #Group identifier
+      - DISPLAY_WIDTH=1280 #preferred screen width
+      - DISPLAY_HEIGHT=768 #preferred screen height
+      - LOG_LEVEL=debug
+    ports:
+      - 9080:5980
+      #- "8080:5980"
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/chromium:/data:rw
+      #- chromium-data:/data:rw
+    restart: unless-stopped
