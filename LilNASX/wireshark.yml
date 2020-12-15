@@ -1,0 +1,20 @@
+#https://github.com/linuxserver/docker-wireshark
+#tested/working
+---
+version: "2.1"
+services:
+  wireshark:
+    image: ghcr.io/linuxserver/wireshark
+    container_name: wireshark
+    cap_add:
+      - NET_ADMIN
+    network_mode: host
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/New_York
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/wireshark:/config
+    ports:
+      - 3000:3000 #optional
+    restart: unless-stopped

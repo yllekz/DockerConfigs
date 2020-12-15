@@ -1,0 +1,17 @@
+#https://github.com/linuxserver/docker-freshrss
+#tested/working
+---
+version: "2.1"
+services:
+  freshrss:
+    image: ghcr.io/linuxserver/freshrss
+    container_name: freshrss
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/New_York
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/freshrss:/config
+    ports:
+      - 455:80
+    restart: unless-stopped
