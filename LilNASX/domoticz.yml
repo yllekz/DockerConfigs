@@ -5,7 +5,7 @@
 #https://www.domoticz.com/wiki/Philips_Hue_Lights
 #https://github.com/linuxserver/docker-domoticz
 #https://hub.docker.com/r/linuxserver/domoticz
-#Untested
+#Tested/working
 ---
 version: "2"
 services:
@@ -20,7 +20,7 @@ services:
     volumes:
       - /srv/dev-disk-by-label-Data/config/domoticz:/config
     ports:
-      - 8080:8080 #WebUI
+      - 8082:8080 #WebUI
       - 6144:6144 #Domoticz comm port
       - 1443:1443 #Domoticz comm port
     #devices:
