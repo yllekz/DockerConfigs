@@ -1,6 +1,9 @@
 #https://github.com/linuxserver/docker-digikam
+#https://hub.docker.com/r/linuxserver/digikam/tags
 #digiKam: Professional Photo Management with the Power of Open Source
 #By default the user/pass is abc/abc
+#Tested, the container does deploy, but I only get a blank screen in the web UI.
+#Image is pretty large, make sure you have disk space.
 ---
 version: "2.1"
 services:
