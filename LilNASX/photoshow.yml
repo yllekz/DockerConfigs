@@ -1,0 +1,20 @@
+#https://github.com/linuxserver/docker-photoshow
+#Photoshow is gallery software at its easiest, it doesn't even require a database.
+#tested/working
+---
+version: "2.1"
+services:
+  photoshow:
+    image: ghcr.io/linuxserver/photoshow
+    container_name: photoshow
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/New_York
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/photoshow:/config
+      - /srv/dev-disk-by-label-Data/Photos:/Pictures:ro
+      - /srv/dev-disk-by-label-Data/config/photoshow/thumbs:/Thumbs
+    ports:
+      - 801:80
+    restart: unless-stopped

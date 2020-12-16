@@ -1,0 +1,21 @@
+#https://github.com/linuxserver/docker-code-server
+#tested/working
+#Visual Studio Code server
+---
+version: "2.1"
+services:
+  code-server:
+    image: ghcr.io/linuxserver/code-server
+    container_name: code-server
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/New_York
+      #- PASSWORD=password #optional
+      #- SUDO_PASSWORD=password #optional
+      #- PROXY_DOMAIN=code-server.my.domain #optional
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/code-server:/config
+    ports:
+      - 8443:8443
+    restart: unless-stopped

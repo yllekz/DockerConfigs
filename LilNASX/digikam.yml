@@ -1,0 +1,20 @@
+#https://github.com/linuxserver/docker-digikam
+#digiKam: Professional Photo Management with the Power of Open Source
+#By default the user/pass is abc/abc
+---
+version: "2.1"
+services:
+  digikam:
+    image: linuxserver/digikam:arm32v7-latest
+    container_name: digikam
+    network_mode: host
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/New_York
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/digikam:/config
+      - /srv/dev-disk-by-label-Data/Photos:/Pictures:ro
+    ports:
+      - 3000:3000 #optional
+    restart: unless-stopped

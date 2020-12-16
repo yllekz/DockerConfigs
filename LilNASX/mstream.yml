@@ -1,0 +1,24 @@
+#https://github.com/linuxserver/docker-mstream
+#mstream is a personal music streaming server.
+#You can use mStream to stream your music from your home computer to any device, anywhere.
+#There are mobile apps available for both Android and iPhone.
+#Untested
+---
+version: "2.1"
+services:
+  mstream:
+    image: ghcr.io/linuxserver/mstream
+    container_name: mstream
+    environment:
+      - PUID=998
+      - PGID=100
+      - USER=admin
+      - PASSWORD=password
+      - USE_JSON=true/false
+      - TZ=America/New_York
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/mstream:/config
+      - /srv/dev-disk-by-label-Data/Audio/Music:/music
+    ports:
+      - 3000:3000
+    restart: unless-stopped
