@@ -1,0 +1,39 @@
+#https://hub.docker.com/_/wordpress
+#https://github.com/docker-library/wordpress
+#Requires a database (yobasystems/alpine-mariadb:latest), see https://www.youtube.com/watch?v=E9ajGRn3AfQ
+#The only way we can get the DB_HOST variable is by deploying the container
+#and then going to the database's Container Console/connecting as root
+#Once you've done that, you should see a black screen. On that screen, type the following:
+#hostname -I
+#And you should see the IP in the console output.
+#If the console is not connecting, go to the DB container, click "inspect" on the container and go to "text" to get the IP.
+#Back in the Portainer Stack, put the resulting IP Address as the DB_HOST (example: 172.17.0.6).
+#Then press the "update the stack" button.
+#tested/working
+---
+version: "2.1"
+services:
+  wordpress:
+    image: wordpress:latest
+    restart: unless-stopped
+    ports:
+      - 8086:80
+    environment:
+      WORDPRESS_DB_HOST: 172.17.0.11  #This will be the IP of your DB container, pulled after the DB container is deployed
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/wordpress:/var/www/html
+
+  db:
+    image: yobasystems/alpine-mariadb:latest
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: unless-stopped
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/wordpressdb:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=wordpress
+      - MYSQL_PASSWORD=wordpress
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
