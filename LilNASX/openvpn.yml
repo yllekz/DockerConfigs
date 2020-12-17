@@ -5,7 +5,7 @@
 version: "2.1"
 services:
   openvpn:
-    image: giggio/openvpn-arm
+    image: giggio/openvpn-arm:latest
     container_name: openvpn
     restart: unless-stopped
     environment:

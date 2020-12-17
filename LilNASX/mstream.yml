@@ -7,7 +7,7 @@
 version: "2.1"
 services:
   mstream:
-    image: ghcr.io/linuxserver/mstream
+    image: ghcr.io/linuxserver/mstream:latest
     container_name: mstream
     environment:
       - PUID=998

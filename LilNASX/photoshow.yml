@@ -5,7 +5,7 @@
 version: "2.1"
 services:
   photoshow:
-    image: ghcr.io/linuxserver/photoshow
+    image: ghcr.io/linuxserver/photoshow:latest
     container_name: photoshow
     environment:
       - PUID=998

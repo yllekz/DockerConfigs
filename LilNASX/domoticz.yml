@@ -10,7 +10,7 @@
 version: "2"
 services:
   domoticz:
-    image: linuxserver/domoticz
+    image: linuxserver/domoticz:latest
     container_name: domoticz
     environment:
       - PUID=998

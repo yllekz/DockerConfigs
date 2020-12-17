@@ -6,7 +6,7 @@
 version: "2.1"
 services:
   doublecommander:
-    image: ghcr.io/linuxserver/doublecommander
+    image: ghcr.io/linuxserver/doublecommander:latest
     container_name: doublecommander
     environment:
       - PUID=998
