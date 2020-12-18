@@ -1,0 +1,18 @@
+#https://github.com/Tzahi12345/YoutubeDL-Material
+#https://hub.docker.com/r/tzahi12345/youtubedl-material/
+#tested/working
+version: "2"
+services:
+    ytdl_material:
+        image: tzahi12345/youtubedl-material:nightly-arm
+        environment:
+            ALLOW_CONFIG_MUTATIONS: 'true'
+        restart: unless-stopped
+        volumes:
+            - /srv/dev-disk-by-label-Data/config/ytdl:/app/appdata
+            - /srv/dev-disk-by-label-Data/Public/ytdl/audio:/app/audio
+            - /srv/dev-disk-by-label-Data/Public/ytdl/video:/app/video
+            - /srv/dev-disk-by-label-Data/Public/ytdl/subscriptions:/app/subscriptions
+            - /srv/dev-disk-by-label-Data/Public/ytdl/users:/app/users
+        ports:
+            - "9877:17442"
