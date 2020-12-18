@@ -4,7 +4,7 @@
 version: "2"
 services:
   rdesktop:
-    image: linuxserver/rdesktop
+    image: linuxserver/rdesktop:latest
     container_name: rdesktop
     network_mode: host
     privileged: true #optional
