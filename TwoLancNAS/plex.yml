@@ -11,6 +11,6 @@ services:
        - PGID=100
        - VERSION=docker
     volumes:
-       - /etc/config/plex:/config
+       - /srv/dev-disk-by-label-EVO256/config/plex:/config
        - /srv/dev-disk-by-label-EVO256/Photos:/Photos
        - /srv/dev-disk-by-label-EVO256/Videos:/Videos

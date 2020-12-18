@@ -22,8 +22,8 @@ services:
       #- 8920:8920/udp #optional. Secure port
       #- 1900:1900/udp #optional
     volumes:
-      - /srv/dev-disk-by-label-Data/config/jellyfin:/config
+      - /srv/dev-disk-by-label-EVO256/config/jellyfin:/config
       - /srv/dev-disk-by-label-EVO256/Photos:/Photos
       - /srv/dev-disk-by-label-EVO256/Videos:/Videos
-      #- /srv/dev-disk-by-label-Data/Videos/transcode:/transcode #optional
+      #- /srv/dev-disk-by-label-EVO256/Videos/transcode:/transcode #optional
     restart: unless-stopped
