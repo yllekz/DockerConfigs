@@ -1,0 +1,10 @@
+version: "2.1"
+services:
+  httpd:
+    image: httpd:latest
+    container_name: httpd
+    volumes:
+        - /srv/dev-disk-by-label-EVO256/config/httpd:/usr/local/apache2/htdocs/
+    ports:
+        - 2222:80
+    restart: unless-stopped
