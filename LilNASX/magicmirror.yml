@@ -1,0 +1,23 @@
+#https://hub.docker.com/r/karsten13/magicmirror
+#https://github.com/MichMich/MagicMirror
+#https://docs.magicmirror.builders/getting-started/installation.html
+#https://github.com/bastilimbach/docker-MagicMirror
+#Tested/working
+---
+version: "2.1"
+services:
+  magicmirror:
+    image: bastilimbach/docker-magicmirror:latest
+    container_name: magicmirror
+    environment:
+      - PUID=998
+      - PGID=100
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/magicmirror/config:/opt/magic_mirror/config
+      - /srv/dev-disk-by-label-Data/config/magicmirror/modules:/opt/magic_mirror/modules
+      - /etc/localtime:/etc/localtime:ro
+      #- ~/magic_mirror/config:/opt/magic_mirror/config
+      #- ~/magic_mirror/modules:/opt/magic_mirror/modules
+    ports:
+      - 8083:8080
+    restart: unless-stopped

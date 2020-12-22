@@ -3,7 +3,7 @@
 ---
 version: "2.1"
 services:
-  beets:
+  lms:
     image: epoupon/lms:latest
     container_name: lms
     environment:

@@ -2,7 +2,7 @@
 ---
 version: "2.1"
 services:
-  qbittorrent:
+  ytdl:
     image: cascha42/ytdl-webserver
     container_name: ytdl-webserver
     environment:
