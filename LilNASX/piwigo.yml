@@ -1,0 +1,47 @@
+#Piwigo is a photo gallery software for the web that comes with powerful features to publish and manage your collection of pictures.
+#https://hub.docker.com/r/linuxserver/piwigo
+#https://github.com/linuxserver/docker-piwigo
+#Requires a database (yobasystems/alpine-mariadb:latest), see https://www.youtube.com/watch?v=E9ajGRn3AfQ
+#https://dbtechreviews.com/2020/08/piwigo-installed-in-docker-with-portainer/
+#The only way we can get the DB_HOST variable is by deploying the DB container
+#Then, go to the DB container, click "inspect" on the container and go to "text" to get the IP under "IPAddress"
+#Back in the Portainer Stack, put the resulting IP Address as the DB_HOST (example: 172.17.0.6).
+#Then press the "update the stack" button.
+#When loading/installing Piwigo for the first time,
+#enter the same DB IP/username/password/database names as below in the web interface.
+#Not sure how practical this is, as it won't easily import existing photos....
+#https://piwigo.org/forum/viewtopic.php?id=29314
+---
+version: "2.1"
+services:
+  piwigo:
+    image: ghcr.io/linuxserver/piwigo:latest
+    container_name: piwigo
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/New_York
+      - DB_HOST=changemelater #This will be the IP of your DB container, pulled after the DB container is deployed
+      - DB_USERNAME=piwigo
+      - DB_PASSWORD=piwigo
+      - DB_DATABASE=piwigo
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/piwigo:/config
+      - /srv/dev-disk-by-label-Data/Photos/piwigotest:/pictures:rw
+    ports:
+      - 8124:80
+    links:
+      - db:db
+    restart: unless-stopped
+
+  db:
+    image: yobasystems/alpine-mariadb:latest
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: unless-stopped
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/piwigodb:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=piwigo
+      - MYSQL_PASSWORD=piwigo
+      - MYSQL_DATABASE=piwigo
+      - MYSQL_USER=piwigo
