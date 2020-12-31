@@ -1,6 +1,25 @@
 # Watchtower will monitor/update containers automatically, whenever there is a new Docker image available:
+#https://containrrr.dev/watchtower/arguments/
+#https://github.com/containrrr/watchtower
+---
+version: "2.1"
+services:
   watchtower:
     image: containrrr/watchtower
+    container_name: watchtower
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/New_York
+      - WATCHTOWER_MONITOR_ONLY=false #Will only monitor for new images, send notifications and invoke the pre-check/post-check hooks, but will not update the containers.
+      - WATCHTOWER_POLL_INTERVAL=86400 #(24 hours) controls how frequently watchtower will poll for new images
+      - WATCHTOWER_CLEANUP=false #remove the old image after restarting a container with a new image
+      - WATCHTOWER_REMOVE_VOLUMES=false #remove all attached volumes from the container before restarting with a new image
+      - WATCHTOWER_DEBUG=false #debug mode with verbose logging.
+      - WATCHTOWER_INCLUDE_STOPPED=false #include created and exited containers.
+      - WATCHTOWER_REVIVE_STOPPED=false #Start any stopped containers that have had their image updated. This argument is only usable with the --include-stopped argument.
+      - WATCHTOWER_NO_RESTART=false #Do not restart containers after updating.
+      - WATCHTOWER_ROLLING_RESTART=false #Restart one image at time instead of stopping and starting all at once. Useful in conjunction with lifecycle hooks to implement zero-downtime deploy.
     restart: unless-stopped
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
