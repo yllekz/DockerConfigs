@@ -28,3 +28,10 @@ services:
       - /srv/dev-disk-by-label-Data/Audio:/Audio
       #- /srv/dev-disk-by-label-Data/Videos/transcode:/transcode #optional
     restart: unless-stopped
+
+# Watchtower will monitor/upgrade this container set automatically, whenever there is a new Docker image available:
+  watchtower:
+    image: containrrr/watchtower
+    restart: unless-stopped
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
