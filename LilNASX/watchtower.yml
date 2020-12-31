@@ -1,5 +1,6 @@
 # Watchtower will monitor/update containers automatically, whenever there is a new Docker image available:
 #https://containrrr.dev/watchtower/arguments/
+#https://containrrr.dev/watchtower/notifications/
 #https://github.com/containrrr/watchtower
 ---
 version: "2.1"
@@ -20,6 +21,13 @@ services:
       - WATCHTOWER_REVIVE_STOPPED=false #Start any stopped containers that have had their image updated. This argument is only usable with the --include-stopped argument.
       - WATCHTOWER_NO_RESTART=false #Do not restart containers after updating.
       - WATCHTOWER_ROLLING_RESTART=false #Restart one image at time instead of stopping and starting all at once. Useful in conjunction with lifecycle hooks to implement zero-downtime deploy.
+      #- WATCHTOWER_NOTIFICATION_EMAIL_FROM="anemailaddress@icloud.com"
+      #- WATCHTOWER_NOTIFICATION_EMAIL_TO="anemailaddress@icloud.com"
+      #- WATCHTOWER_NOTIFICATION_EMAIL_SERVER="smtp.mail.me.com"
+      #- WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PORT="587"
+      #- WATCHTOWER_NOTIFICATION_EMAIL_SERVER_USER="anemailaddress@icloud.com""
+      #- WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PASSWORD="changeme"
+      #- WATCHTOWER_NOTIFICATION_EMAIL_SUBJECTTAG="LilNASX"
     restart: unless-stopped
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
