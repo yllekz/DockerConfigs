@@ -1,0 +1,52 @@
+#Lychee is a free photo-management tool, which runs on your server or web-space.
+#Installing is a matter of seconds. Upload, manage and share photos like from a native application.
+#Lychee comes with everything you need and all your photos are stored securely."
+#https://github.com/LycheeOrg/Lychee-Docker/
+#https://github.com/LycheeOrg/Lychee-Docker/blob/master/docker-compose.yml
+#https://hub.docker.com/r/lycheeorg/lychee/tags
+#Partially tested, needs work. Initial setup throws errors.
+#Requires a database (yobasystems/alpine-mariadb:latest), see https://www.youtube.com/watch?v=E9ajGRn3AfQ
+#https://dbtechreviews.com/2020/08/lychee-installed-in-docker-with-portainer/
+#The only way we can get the DB_HOST variable is by deploying the container
+#and then going to the database's Container Console/connecting as root
+#Once you've done that, go to the DB container, click "inspect" on the container and go to "text" to get the IP.
+#Back in the Portainer Stack, put the resulting IP Address as the DB_HOST (example: 172.17.0.6).
+#Then press the "update the stack" button.
+#Work in progress
+---
+version: "2.1"
+services:
+  lychee:
+    image: lycheeorg/lychee:multiarch_test
+    container_name: lychee
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/New_York
+      - DB_HOST=changemelater #This will be the IP of your DB container, pulled after the DB container is deployed
+      - DB_USERNAME=lychee
+      - DB_PASSWORD=lychee
+      - DB_DATABASE=lychee
+      - STARTUP_DELAY=30
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/lychee/conf:/conf
+      - /srv/dev-disk-by-label-Data/config/lychee/sym:/sym
+      - /srv/dev-disk-by-label-Data/Photos/lycheetest:/uploads
+    ports:
+      - 8124:80
+    links:
+      - db:db
+    restart: unless-stopped
+
+  db:
+    image: yobasystems/alpine-mariadb:latest
+    container_name: lycheedb
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: unless-stopped
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/lycheedb:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=lychee
+      - MYSQL_PASSWORD=lychee
+      - MYSQL_DATABASE=lychee
+      - MYSQL_USER=lychee
