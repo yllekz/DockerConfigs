@@ -1,0 +1,21 @@
+# PrivateBin is a minimalist, open source online pastebin where the server has zero knowledge of pasted data.
+#Data is encrypted/decrypted in the browser using 256 bits AES. More information on the project page. 
+#A tiny image running alpine Linux and PrivateBin.
+#https://github.com/jgeusebroek/docker-privatebin
+#https://hub.docker.com/r/yangxuan8282/privatebin/tags
+#Tested/working. Does text and markdown?
+---
+version: "2.1"
+services:
+  privatebin:
+    image: yangxuan8282/privatebin:latest
+    container_name: privatebin
+    environment:
+      - PUID=998
+      - PGID=100
+    ports:
+      - 7777:80
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/privatebin/cfg:/privatebin/cfg
+      - /srv/dev-disk-by-label-Data/config/privatebin/data:/privatebin/data
+    restart: unless-stopped
