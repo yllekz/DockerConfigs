@@ -1,11 +1,12 @@
 #https://github.com/linuxserver/docker-code-server
-#tested/working
 #Visual Studio Code server
+#Tested/working, you can use the "latest" tag but it unnecessarily pulls unrelated images, so for the Pi we'll use arm32v7-latest.
+#Extra volumes may be mounted to access/save files.
 ---
 version: "2.1"
 services:
   code-server:
-    image: ghcr.io/linuxserver/code-server:latest
+    image: ghcr.io/linuxserver/code-server:arm32v7-latest
     container_name: code-server
     environment:
       - PUID=998
@@ -16,6 +17,8 @@ services:
       #- PROXY_DOMAIN=code-server.my.domain #optional
     volumes:
       - /srv/dev-disk-by-label-Data/config/code-server:/config
+      - /srv/dev-disk-by-label-Data/Public:/public
+      - /srv/dev-disk-by-label-Data/OfflineDocs:/offlinedocs
     ports:
       - 8443:8443
     restart: unless-stopped
