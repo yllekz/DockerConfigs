@@ -1,0 +1,55 @@
+#https://hub.docker.com/r/viktorstrate/photoview/tags
+#https://github.com/photoview/photoview
+#Tested/working.
+#Initial setup:
+#Enter a new username and password.
+#For the photo path, enter the path in the docker container where your photos are located.
+#(This can be set from the docker-compose.yml file under api -> volumes. The default location is /photos)
+#A new admin user will be created, with access to the photos located at the path provided under the initial setup.
+#The photos will have to be scanned before they show up, you can start a scan manually, by navigating to Settings and clicking on Scan All
+---
+version: "2.1"
+services:
+  photoview:
+    image: viktorstrate/photoview:latest
+    container_name: photoview
+    environment:
+      - PUID=998
+      - PGID=100
+      - MYSQL_URL=photoview:photoview@tcp(db)/photoview
+      - API_LISTEN_IP=photoview
+      - API_LISTEN_PORT=80
+      - PHOTO_CACHE=/app/cache
+
+      # Change This: The publicly exposed url
+      # For example if the server is available from the domain example.com,
+      # change this value to http://example.com/
+      - PUBLIC_ENDPOINT=http://lilnasx:8124
+
+      # Optional: To enable map related features, you need to create a mapbox token.
+      # A token can be generated for free here https://account.mapbox.com/access-tokens/
+      # It's a good idea to limit the scope of the token to your own domain, to prevent others from using it.
+      # - MAPBOX_TOKEN=<YOUR TOKEN HERE>
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/photoview:/app/cache
+      # Change this to the directory where your photos are located on your server.
+      # If the photos are located at `/home/user/photos`, then change this value
+      # to the following: `/home/user/photos:/photos:ro`.
+      # You can mount multiple paths, if your photos are spread across multiple directories.
+      - /srv/dev-disk-by-label-Data/Photos:/photos:ro
+    ports:
+      - 8124:80
+    links:
+      - db:db
+    restart: unless-stopped
+
+  db:
+    image: yobasystems/alpine-mariadb:latest
+    restart: unless-stopped
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/photoviewdb:/var/lib/mysql
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=1
+      - MYSQL_PASSWORD=photoview
+      - MYSQL_DATABASE=photoview
+      - MYSQL_USER=photoview
