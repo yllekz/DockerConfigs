@@ -19,6 +19,7 @@ services:
       - HTTP_PASSWORD=mypassword #first web password
       - USER=steve #web username prompt
       - PASSWORD=password #VNC and second web password
+      - RESOLUTION=1280x720 #sets the resolution (needed for the web, otherwise it's squished)
     volumes:
       #- /dev/shm:/dev/shm
       - /srv/dev-disk-by-label-Data/config/ubuntu-desktop-lxde-vnc:/dev/shm
