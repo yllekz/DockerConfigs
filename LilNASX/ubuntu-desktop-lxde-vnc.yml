@@ -7,7 +7,7 @@
 #VNC: just connect to the host name
 version: "2"
 services:
-  rdesktop:
+  ubuntudesktop:
     image: dorowu/ubuntu-desktop-lxde-vnc:bionic-armhf
     container_name: ubuntudesktop
     network_mode: bridge
@@ -15,7 +15,7 @@ services:
       - PUID=998
       - PGID=100
       - TZ=America/New_York
-      - VNC_PASSWORD=mypassword #straight VNC password
+      - VNC_PASSWORD=mypassword #direct VNC password
       - HTTP_PASSWORD=mypassword #first web password
       - USER=steve #web username prompt
       - PASSWORD=password #VNC and second web password
@@ -23,6 +23,6 @@ services:
       #- /dev/shm:/dev/shm
       - /srv/dev-disk-by-label-Data/config/ubuntu-desktop-lxde-vnc:/dev/shm
     ports:
-      - 6080:80
-      - 5900:5900
+      - 6080:80 #web access
+      #- 5900:5900 #uncomment if you want VNC access
     restart: unless-stopped
