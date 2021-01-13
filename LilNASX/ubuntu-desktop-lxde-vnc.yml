@@ -2,9 +2,13 @@
 #https://github.com/fcwu/docker-ubuntu-vnc-desktop/
 #"This image does not support network mode as host."
 #Running this in bridge mode results in nginx flapping and web not working
+#Additional volumes may be mounted for file access inside the container.
 #Works with VNC and web when in bridge mode
 #Web access: http://host:6080
 #VNC: just connect to the host name
+#The container does not remember desktop settings/installed apps/etc upon being restarted.
+#Install LibreOffice with this command:
+#sudo apt-get update && sudo apt-get install libreoffice -y && sudo apt-get update && sudo apt-get upgrade -y
 version: "2"
 services:
   ubuntudesktop:
@@ -15,14 +19,15 @@ services:
       - PUID=998
       - PGID=100
       - TZ=America/New_York
-      - VNC_PASSWORD=mypassword #direct VNC password
-      - HTTP_PASSWORD=mypassword #first web password
+      - VNC_PASSWORD=password #direct VNC password
+      - HTTP_PASSWORD=password #first web password
       - USER=steve #web username prompt
       - PASSWORD=password #VNC and second web password
       - RESOLUTION=1280x720 #sets the resolution (needed for the web, otherwise it's squished)
     volumes:
       #- /dev/shm:/dev/shm
       - /srv/dev-disk-by-label-Data/config/ubuntu-desktop-lxde-vnc:/dev/shm
+      - /srv/dev-disk-by-label-Data/OfflineDocs:/offlinedocs
     ports:
       - 6080:80 #web access
       #- 5900:5900 #uncomment if you want VNC access
