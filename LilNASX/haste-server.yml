@@ -1,0 +1,19 @@
+#Haste is an open-source pastebin software written in node.js, which is easily installable in any network
+#This is a Docker image for seejohnrun's pastebin clone Haste (with both x86 and armhf builds). 
+#https://github.com/jasongwartz/haste-server
+#https://hub.docker.com/r/jasongwartz/haste-server/tags
+# Tested/working. Only does text.
+# A little raw/bare in terms of UI/features. Not sure how well it would work in practice.
+---
+version: "2.1"
+services:
+  haste-server:
+    #image: jasongwartz/haste-server:armhf
+    image: jasongwartz/haste-server:armhf-filestorage
+    container_name: haste-server
+    environment:
+      - PUID=998
+      - PGID=100
+    ports:
+      - 7777:7777
+    restart: unless-stopped

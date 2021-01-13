@@ -1,0 +1,18 @@
+#sudo docker run -it mcr.microsoft.com/powershell:lts-arm32v7-ubuntu-bionic
+#https://hub.docker.com/_/microsoft-powershell
+#https://github.com/PowerShell/PowerShell-Docker/blob/95a36b1d20be7d3b87c85ed89c60a3a54421e381/release/stable/arm32v7/docker/Dockerfile
+#Tested/not quite working as expected from this file yet.
+---
+version: "2.1"
+services:
+  powershell:
+    image: mcr.microsoft.com/powershell:lts-arm32v7-ubuntu-bionic
+    container_name: powershell
+    environment:
+      - PUID=998
+      - PGID=100
+      - POWERSHELL_TELEMETRY_OPTOUT=1
+      - PS_INSTALL_VERSION=7 #Not sure if this exists
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/powershell:/config #This does nothing
+    #restart: unless-stopped

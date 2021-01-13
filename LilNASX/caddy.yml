@@ -1,0 +1,20 @@
+#https://hub.docker.com/_/caddy?tab=tags
+#https://github.com/caddyserver/caddy-docker
+#Caddy 2 is a powerful, enterprise-ready, open source web server with automatic HTTPS written in Go.
+#Start here: http://hostname:8009/
+#Tested, not fully set up yet. Need to figure out the caddyfile and https/etc.
+---
+version: "2.1"
+services:
+  caddy:
+    image: caddy:latest
+    restart: unless-stopped
+    ports:
+      - "8009:80"
+      - "4439:443"
+    volumes:
+      #- $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - /srv/dev-disk-by-label-Data/config/caddy/Caddyfile:/etc/Caddyfile
+      #- $PWD/site:/srv
+      - /srv/dev-disk-by-label-Data/config/caddy/srv:/srv
+      - /srv/dev-disk-by-label-Data/config/caddy/html:/var/www/html

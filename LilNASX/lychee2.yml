@@ -12,7 +12,7 @@
 #Once you've done that, go to the DB container, click "inspect" on the container and go to "text" to get the IP.
 #Back in the Portainer Stack, put the resulting IP Address as the DB_HOST (example: 172.17.0.6).
 #Then press the "update the stack" button.
-#Work in progress
+#Tested/Doesn't work, containers deploy but installer errors out. not sure how to fix.
 ---
 version: "2.1"
 services:
