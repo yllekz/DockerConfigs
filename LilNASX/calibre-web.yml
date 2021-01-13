@@ -1,0 +1,28 @@
+#https://hub.docker.com/r/linuxserver/calibre-web/tags
+#https://github.com/linuxserver/docker-calibre-web
+#https://github.com/janeczku/calibre-web
+#Calibre-web is a web app providing a clean interface for browsing,
+#reading and downloading eBooks using an existing Calibre database.
+#It is also possible to integrate google drive and edit metadata and your calibre library through the app itself.
+#On the initial setup screen, enter /books as your calibre library location.
+#Default admin login: Username: admin Password: admin123
+#Tested, container deploys but I can't get past the config screen.
+---
+version: "2.1"
+services:
+  calibre-web:
+    image: ghcr.io/linuxserver/calibre-web:arm32v7-latest
+    container_name: calibre-web
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/New_York
+      #- DOCKER_MODS=linuxserver/calibre-web:calibre
+    volumes:
+      #- <path to data>:/config
+      #- <path to calibre library>:/books
+      - /srv/dev-disk-by-label-Data/config/calibre-web:/books #Where calibre-web stores the internal database and config.
+      - /srv/dev-disk-by-label-Data/OfflineDocs/eBooks:/config #Where your preexisting calibre database is locate.
+    ports:
+      - 8084:8083
+    restart: unless-stopped

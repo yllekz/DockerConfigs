@@ -1,0 +1,28 @@
+#Manage your files from a browser
+#https://github.com/mickael-kerjean/filestash/
+#https://github.com/mickael-kerjean/filestash/blob/master/docker/docker-compose.yml
+#https://hub.docker.com/r/ugeek/filestash/tags
+#https://www.filestash.app/docs/install-and-upgrade/
+#In most use-cases only the /app/data/state directory should be bound, as it contains the configuration files and database.
+#Tested/deploys, BUT...first time setup is a bit ugly:
+#First, manually create dir/file: /srv/-dev-disk-by-label-xxx/config/filestash/config.json
+#Then, sudo chmod 666 /srv/-dev-disk-by-label-xxx/config/filestash/config.json
+#This should probably be looked at more properly, at a later date.
+version: "2.1"
+services:
+  filestash:
+    image: ugeek/filestash:arm
+    environment:
+        - PUID=998
+        - PGID=100
+        #- APPLICATION_URL=
+        #- GDRIVE_CLIENT_ID=<gdrive_client>
+        #- GDRIVE_CLIENT_SECRET=<gdrive_secret>
+        #- DROPBOX_CLIENT_ID=<dropbox_key>
+        #- ONLYOFFICE_URL=http://onlyoffice
+    volumes:
+        #- /srv/dev-disk-by-label-Data2:/testshare
+        - /srv/dev-disk-by-label-Data/config/filestash:/app/data/state/config
+    ports:
+        - 8334:8334
+    restart: unless-stopped
