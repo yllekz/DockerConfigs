@@ -6,7 +6,12 @@ services:
     ytdl_material:
         image: tzahi12345/youtubedl-material:nightly-arm
         environment:
+            UID: '998' #These broke the container (regardless of quotations) so I'm leaving them commented out
+            GID: '100' #These broke the container (regardless of quotations) so I'm leaving them commented out
             ALLOW_CONFIG_MUTATIONS: 'true'
+            #HTTP_PROXY: "socks://tor.proxy.local:9150" #https://github.com/Tzahi12345/YoutubeDL-Material/issues/177#issuecomment-722685712
+            #HTTPS_PROXY: "socks://tor.proxy.local:9150" #https://github.com/Tzahi12345/YoutubeDL-Material/issues/177#issuecomment-722685712
+            #FTP_PROXY: "socks://tor.proxy.local:9150" #https://github.com/Tzahi12345/YoutubeDL-Material/issues/177#issuecomment-722685712
         restart: unless-stopped
         volumes:
             - /srv/dev-disk-by-label-Data/config/ytdl:/app/appdata
