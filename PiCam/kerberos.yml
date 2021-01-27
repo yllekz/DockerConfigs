@@ -1,0 +1,26 @@
+#https://hub.docker.com/r/kerberos/kerberos/tags
+#https://github.com/kerberos-io/kerberos-docker
+#https://github.com/kerberos-io/kerberos-docker/issues/14
+#"By default the images captured are saved to /etc/opt/kerberosio/capture/"
+#https://github.com/kerberos-io/kerberos-docker/blob/master/bin/src/docker.sh#L43
+#https://cedricverst.medium.com/kerberos-io-on-docker-19b25fa7efd1
+#Tested/working
+---
+version: "2"
+services:
+  kerberos:
+    image: kerberos/kerberos:latest
+    container_name: kerberos
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - /dockerconfig/kerberos/capture:/etc/opt/kerberosio/capture
+      - /dockerconfig/kerberos/config:/etc/opt/kerberosio/config
+      - /dockerconfig/kerberos/logs:/etc/opt/kerberosio/logs
+      - /dockerconfig/kerberos/webconfig:/var/www/web/config
+    ports:
+      - 8080:80 #WebUI
+      - 8889:8889 #kerberos comm port
+    restart: unless-stopped
