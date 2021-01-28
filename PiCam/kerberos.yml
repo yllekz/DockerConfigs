@@ -2,8 +2,6 @@
 #https://github.com/kerberos-io/kerberos-docker
 #https://github.com/kerberos-io/kerberos-docker/issues/14
 #"By default the images captured are saved to /etc/opt/kerberosio/capture/"
-#https://github.com/kerberos-io/kerberos-docker/blob/master/bin/src/docker.sh#L43
-#https://cedricverst.medium.com/kerberos-io-on-docker-19b25fa7efd1
 #Tested/working
 ---
 version: "2"
@@ -23,4 +21,7 @@ services:
     ports:
       - 8080:80 #WebUI
       - 8889:8889 #kerberos comm port
+    devices:
+       - "/dev/vchiq:/dev/vchiq"
+    privileged: true
     restart: unless-stopped
