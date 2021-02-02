@@ -1,0 +1,17 @@
+#Cloud Commander is an orthodox web file manager with console and editor.
+#https://github.com/coderaiser/cloudcmd
+#https://hub.docker.com/r/coderaiser/cloudcmd
+#https://dbtechreviews.com/2020/03/how-to-install-cloud-commander-in-openmediavault-5-with-docker-and-portainer/
+#tested/working
+---
+version: "2.1"
+services:
+  cloudcmd:
+    image: coderaiser/cloudcmd:latest
+    ports:
+      - 7000:8000
+    volumes:
+      - ~:/root
+      - /:/mnt/fs
+      - /dockerconfig:/dockerconcig
+    restart: unless-stopped
