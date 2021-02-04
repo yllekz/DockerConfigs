@@ -1,6 +1,6 @@
 #https://hub.docker.com/r/hlince/trilium
 #https://github.com/zadam/trilium
-#Unofficial arm docker image for trillium
+#Unofficial arm docker image for trilium
 #hierarchical note taking application with focus on building large personal knowledge bases
 #Tested/working
 ---
@@ -8,10 +8,11 @@ version: "2.1"
 services:
   trilium:
     image: hlince/trilium:latest-stable-arm
+    container_name: trilium
     restart: unless-stopped
     ports:
     - 9080:8080
     environment:
     - TRILIUM_DATA_DIR=/data
     volumes:
-    - /srv/dev-disk-by-label-Data/config/trillium/data:/data
+    - /srv/dev-disk-by-label-Data/config/trilium/data:/data
