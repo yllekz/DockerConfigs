@@ -13,5 +13,5 @@ services:
     volumes:
       - ~:/root
       - /:/mnt/fs
-      - /dockerconfig:/dockerconcig
+      - /dockerconfig:/dockerconfig
     restart: unless-stopped
