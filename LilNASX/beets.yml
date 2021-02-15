@@ -1,17 +1,32 @@
+#https://github.com/beetbox/beets
+#https://github.com/linuxserver/docker-beets
+#https://hub.docker.com/r/linuxserver/beets
+#https://beets.readthedocs.io/en/stable/guides/main.html
+#https://beets.readthedocs.io/en/latest/plugins/web.html?highlight=web#run-the-server
+#Web UI appears to just be for browsing
+#Usage instructions for the command line (Portainer->beets->Exec console->Connect)
+#Place mp3 files in /music directory
+#To tag, run this command:
+#beet import /music
+#Files will be massaged/manipulated and organized into folder structures where applicable.
+#To import without tagging, run this command:
+#beet import /downloads -A
+#Music will then be discoverable in the web UI
+#Tested/I continue to not really understand the usefulness of this. It's a little too finicky.
 ---
 version: "2.1"
 services:
   beets:
-    image: linuxserver/beets
+    image: linuxserver/beets:latest
     container_name: beets
     environment:
-      - PUID=1000
-      - PGID=1000
+      - PUID=998
+      - PGID=100
       - TZ=America/New_York
     volumes:
-      - /srv/dev-disk-by-label-Data/config/beets:/config
-      - /srv/dev-disk-by-label-Data/Audio:/music
-      - /srv/dev-disk-by-label-Data/Public:/downloads
+      - /srv/dev-disk-by-label-Data/config/beets:/config #configuration files
+      - /srv/dev-disk-by-label-Data/Audio/beetstest/music:/music #music library
+      - /srv/dev-disk-by-label-Data/Audio/beetstest/downloads:/downloads #non-processed music
     ports:
-      - 8337:8337
+      - 8337:8337 #application web UI
     restart: unless-stopped
