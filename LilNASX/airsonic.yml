@@ -16,7 +16,7 @@ services:
       - PGID=100
     volumes:
       - /srv/dev-disk-by-label-Data/config/airsonic:/config
-      - /srv/dev-disk-by-label-Data/Audio/Music:/music:ro
+      - /srv/dev-disk-by-label-Data/Audio/Music:/music:rw
       - /srv/dev-disk-by-label-Data/Audio/Music/Playlists/Airsonic:/playlists:rw
       - /srv/dev-disk-by-label-Data/Audio/Podcasts/airsonic:/podcasts:rw
     ports:
