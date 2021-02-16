@@ -1,0 +1,28 @@
+#https://hub.docker.com/r/linuxserver/musicbrainz
+#https://github.com/linuxserver/docker-musicbrainz/
+#For all updates you should pull the latest image, clear all files and folders in /config and /data and reinitiate the database import by (re)starting the docker.
+#We do not officially support upgrading this container in place with existing data sets.
+#The initial import and setup of the database can take quite a long time, dependant on your download speed etc.
+#be patient and don't restart the container before it's complete.
+#Tested/working
+---
+version: "2.1"
+services:
+  musicbrainz:
+    image: ghcr.io/linuxserver/musicbrainz:latest
+    container_name: musicbrainz
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/New_York
+      - BRAINZCODE=<access token> #To enter MusicBrainz code. https://metabrainz.org/supporters/account-type
+      - WEBADDRESS=x.x.x.x #To set ip for host to allow css to render properly, DO NOT ENTER PORT NUMBER.
+      #- NPROC=<parameter> #optional, To set number of proceses, defaults to 5 if unset.
+    volumes:
+      #- </path/to/appdata/config>:/config
+      #- </path/to/appdata/config>:/data
+      - /srv/dev-disk-by-label-Data/config/musicbrainz/config:/config
+      - /srv/dev-disk-by-label-Data/config/musicbrainz/data:/data
+    ports:
+      - 5000:5000
+    restart: unless-stopped
