@@ -1,0 +1,21 @@
+#https://hub.docker.com/r/bitwardenrs/server/tags
+#https://github.com/dani-garcia/bitwarden_rs
+#https://github.com/dani-garcia/bitwarden_rs/wiki/Using-Docker-Compose
+#This is a Bitwarden server API implementation written in Rust compatible with upstream Bitwarden clients*,
+#perfect for self-hosted deployment where running the official resource-heavy service might not be ideal.
+#Tested/container deploys but the register page won't do anything when you click "submit"
+#It also complains that you must be using HTTPS before doing anything.
+---
+version: "2.1"
+services:
+  bitwarden:
+    image: bitwardenrs/server:latest
+    container_name: bitwarden
+    environment:
+      - WEBSOCKET_ENABLED=true # Required to use websockets
+      - SIGNUPS_ALLOWED=true   # set to false to disable signups
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/bitwarden:/data
+    ports:
+      - 12345:80
+    restart: unless-stopped
