@@ -9,8 +9,8 @@ services:
     image: containrrr/watchtower
     container_name: watchtower
     environment:
-      - PUID=998
-      - PGID=100
+      - PUID=1000 #pi
+      - PGID=1000 #pi
       - TZ=America/New_York
       - WATCHTOWER_MONITOR_ONLY=false #Will only monitor for new images, send notifications and invoke the pre-check/post-check hooks, but will not update the containers.
       - WATCHTOWER_POLL_INTERVAL=86400 #(24 hours) controls how frequently watchtower will poll for new images
