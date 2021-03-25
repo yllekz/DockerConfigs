@@ -15,8 +15,10 @@ services:
     volumes:
       - /srv/dev-disk-by-label-Data/config/airsonic-advanced:/var/airsonic
       - /srv/dev-disk-by-label-Data/Audio/Music:/var/music:rw
-      - /srv/dev-disk-by-label-Data/Audio/Music/Playlists/Airsonic:/var/playlists:rw
+      - /srv/dev-disk-by-label-Data/Audio/Music/Playlists/AirsonicAdvanced:/var/playlists:rw
       - /srv/dev-disk-by-label-Data/Audio/Podcasts/airsonic:/var/podcasts:rw
     ports:
-      - 4041:4041/tcp
+      - 4041:4040/tcp #AirSonic Web UI Port
+      #- 4041:4041/tcp #DLNA/UpnP Port [untested]
+      #- 1900:1900/udp #DLNA/UpnP Port [untested]
     restart: unless-stopped
