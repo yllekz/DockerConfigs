@@ -1,0 +1,32 @@
+#https://hub.docker.com/r/itzg/minecraft-bedrock-server
+#https://github.com/itzg/docker-minecraft-bedrock-server
+#https://minecraft.gamepedia.com/Server.properties#Bedrock_Edition_3
+#Not currently supported on the Pi
+---
+	version: "2"
+	services:
+	  minecraft-server:
+	    image: itzg/minecraft-bedrock-server
+	    container_name: minecraft-bedrock
+	    network_mode: host
+	    environment:
+	      - PUID=998
+	      - PGID=100
+	      - EULA=TRUE
+	      - VERSION=LATEST
+	      - MEMORY=2G
+	      - LEVEL_TYPE=SURVIVAL
+	      - MAX_THREADS=8
+	      - MAX_PLAYERS=10
+	      - SERVER_PORT=19132
+	      - SERVER_NAME=SkellyBEServer
+	      - TICK_DISTANCE=4
+	      - VIEW_DISTANCE=10
+	      - DIFFICULTY=1
+	      - GAMEMODE=0
+	      - PLAYER_IDLE_TIMEOUT=15
+	    ports:
+	      - 19132:19132
+	    volumes:
+	      - /srv/dev-disk-by-label-Data/Minecraft/ServerBE:/data
+    restart: unless-stopped
