@@ -1,0 +1,17 @@
+#https://github.com/satssehgal/pictureframe
+#https://hub.docker.com/r/satssehgal/pictureframe
+#This is a very simple server side picture frame web application that you could use to host photos and display them on a computer,
+#phone, or even hang a tablet on a wall and build a rotating image picture frame.
+#tested/working, but does not support HEIC files right now.
+---
+version: "2.1"
+services:
+  photoshow:
+    image: satssehgal/pictureframe:latest
+    container_name: pictureframe
+    volumes:
+      #- ./img:/app/static/images
+      - "/srv/dev-disk-by-label-EVO256/Photos:/app/static/images"
+    ports:
+      - 5000:5000
+    restart: unless-stopped
