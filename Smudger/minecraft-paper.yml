@@ -1,7 +1,8 @@
 #Minecraft server for Smudger
 #cd ~/Documents/GitHub/DockerConfigs; git pull;
 #cp ~/Documents/GitHub/DockerConfigs/Smudger/minecraft-paper.yml ~/Documents/GitHub/docker-compose.yml
-#docker-compose -up d
+#cd ~/docker; docker-compose up d
+#docker logs minecraft
 ---
 version: "2"
 services:
