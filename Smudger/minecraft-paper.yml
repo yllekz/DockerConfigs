@@ -1,14 +1,14 @@
 #Minecraft server for Smudger
+#cd ~/Documents/GitHub/DockerConfigs; git pull;
+#cp ~/Documents/GitHub/DockerConfigs/Smudger/minecraft-paper.yml ~/Documents/GitHub/docker-compose.yml
+#docker-compose -up d
 ---
 version: "2"
 services:
   minecraft-server:
     image: itzg/minecraft-server:multiarch
     container_name: minecraft
-    network_mode: host
     environment:
-      - PUID=998
-      - PGID=100
       - EULA=TRUE
       - VERSION=1.16.5 #LATEST is supported but Paper version may lag behind so hardcode this
       - MEMORY=2G
@@ -17,5 +17,5 @@ services:
     ports:
       - 25565:25565
     volumes:
-      - ~/docker/minecraft/ServerJEPaper:/data
+      - ~/docker/config/minecraft/ServerJEPaper:/data
     restart: unless-stopped
