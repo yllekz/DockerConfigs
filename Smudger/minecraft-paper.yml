@@ -18,5 +18,5 @@ services:
     ports:
       - 25565:25565
     volumes:
-      - ~/docker/config/minecraft/ServerJEPaper:/data
+      - /Users/steve/docker/config/minecraft/ServerJEPaper:/data
     restart: unless-stopped
