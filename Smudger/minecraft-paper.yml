@@ -12,11 +12,13 @@ services:
     environment:
       - EULA=TRUE
       - VERSION=1.16.5 #LATEST is supported but Paper version may lag behind so hardcode this
-      - MEMORY=2G
+      - MEMORY=2G #"1G" by default, can be used to adjust both initial (Xms) and max (Xmx) memory heap settings of the JVM
+      - INIT_MEMORY=1G #independently sets the initial heap size
+      - MAX_MEMORY=2G #independently sets the max heap size
       - ANNOUNCE_PLAYER_ACHIEVEMENTS=true
       - TYPE=PAPER
     ports:
       - 25565:25565
     volumes:
-      - ~/docker/config/minecraft/ServerJEPaper:/data
+      - /Users/steve/docker/config/minecraft/ServerJEPaper:/data
     restart: unless-stopped
