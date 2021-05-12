@@ -1,0 +1,19 @@
+#https://hub.docker.com/r/henrywhitaker3/speedtest-tracker
+#https://github.com/henrywhitaker3/Speedtest-Tracker
+#Tested/working
+---
+version: "2.1"
+services:
+  speedtesttracker:
+    image: henrywhitaker3/speedtest-tracker:latest-arm
+    container_name: speedtesttracker
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/New_York
+      - OOKLA_EULA_GDPR=true
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/speedtest-tracker/config:/config
+    ports:
+      - 8765:80
+    restart: unless-stopped
