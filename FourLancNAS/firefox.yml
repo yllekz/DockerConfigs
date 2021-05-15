@@ -30,5 +30,6 @@ services:
       #- 8080:8080
     volumes:
       - /srv/dev-disk-by-label-SD1TB/config/firefox:/firefox
+      - "/srv/dev-disk-by-label-WD8TB/BackupSteve/Archive/Coffey Insurance:/coffey"
       #- /mnt/cache/appdata/firefox:/firefox
     restart: unless-stopped
