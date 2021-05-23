@@ -1,0 +1,21 @@
+#https://hub.docker.com/r/tiredofit/clamav
+#https://github.com/tiredofit/docker-clamav
+#container image to scan files or mail messages.
+#Many more environment variable options are available than what is below, it's just that the default settings are fine for most of them.
+#Tested/deploys, but only acts as a daemon. I couldn't seem to get it to scan on its own. Not sure what the deal is.
+---
+version: "2.1"
+services:
+  clamav:
+    image: tiredofit/clamav:latest
+    restart: unless-stopped
+    environment:
+      - DEFINITIONS_UPDATE_FREQUENCY=60 #How often to check for new definitions (minutes)
+      #- DEFINITIONS_UPDATE_BEGIN=0000 #What time to do the first dump. Defaults to immediate. HHMM format
+    ports:
+      - "3310:3310" #ClamD Listening port
+    volumes:
+      - /srv/dev-disk-by-label-Data/config/clamav/definitions:/data/definitions
+      - /srv/dev-disk-by-label-Data/config/clamav/config:/data/config
+      - /srv/dev-disk-by-label-Data/config/clamav/logs:/logs
+      - /srv/dev-disk-by-label-Data/Public/clamavtest:/scan #directory to scan
