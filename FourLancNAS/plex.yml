@@ -1,0 +1,18 @@
+---
+version: "2.1"
+services:
+  plex:
+    image: ghcr.io/linuxserver/plex:bionic
+    container_name: plex
+    network_mode: host
+    restart: unless-stopped
+    environment:
+       - PUID=998
+       - PGID=100
+       - VERSION=docker
+    #ports:
+       #- 32400:32400
+    volumes:
+       - /srv/dev-disk-by-label-SD1TB/config/plex:/config
+       - /srv/dev-disk-by-label-SD1TB/Data/Photos:/Photos
+       - /srv/dev-disk-by-label-SD1TB/Data/Videos:/Videos
