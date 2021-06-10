@@ -1,0 +1,45 @@
+
+#https://hub.docker.com/r/pihole/pihole
+#https://github.com/pi-hole/docker-pi-hole
+#https://docs.pi-hole.net/
+#https://old.reddit.com/r/portainer/comments/i11hxo/why_does_this_stack_not_propagate_the_env_vars/
+#https://github.com/petersem/DockerStack/blob/master/docker-compose.yaml
+#Recommended but not required (DHCP needs NET_ADMIN)
+#https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+#Tested, getting weird bind errors on LilNASX...it's not happy about port 53.
+#Must access web UI via IP:port only (hostname will not work by default) http://x.x.x.x:9999
+#Usage: Either configure the router's DNS to point to this server, or configure individual devices' DNS to point to this server.
+---
+version: "2.1"
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    hostname: pihole
+    restart: unless-stopped
+    #network_mode: host
+    cap_add:
+      - NET_ADMIN
+    dns:
+      - 127.0.0.1
+      - 9.9.9.9
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "8880:80/tcp"
+      - "8843:443/tcp"
+    environment:
+      - PUID=998
+      - PGID=100
+      - TZ=America/New_York
+      - WEBPASSWORD=somethingreallytemporary
+      - ServerIP=10.0.0.7
+      - DNS1=127.0.0.1 #keep as-is
+      - DNS2=9.9.9.9 #Whatever DNS provider you want
+      - TEMPERATUREUNIT=f
+      - FTL_CMD=debug
+      - DNSMASQ_LISTENING=all
+    volumes:
+       - '/srv/dev-disk-by-label-Data/config/pihole/config:/etc/pihole/'
+       - '/srv/dev-disk-by-label-Data/config/pihole/etc/dnsmasq.d/:/etc/dnsmasq.d'
