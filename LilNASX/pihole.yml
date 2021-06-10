@@ -6,7 +6,10 @@
 #https://github.com/petersem/DockerStack/blob/master/docker-compose.yaml
 #Recommended but not required (DHCP needs NET_ADMIN)
 #https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
-#Tested, getting weird bind errors on LilNASX...it's not happy about port 53.
+#Tested/working
+#See below notse regarding port 53 "already in use" error and resolution:
+###https://github.com/sameersbn/docker-bind/issues/65
+###https://techmikewi.com/2021/05/16/docker-error-response-from-daemon-driver-failed-programming-external-connectivity-on-endpoint-pihole-error-starting-userland-proxy-listen-tcp4-0-0-0-053-bind-address-already-in-use-linuxmint/
 #Must access web UI via IP:port only (hostname will not work by default) http://x.x.x.x:9999
 #Usage: Either configure the router's DNS to point to this server, or configure individual devices' DNS to point to this server.
 ---
@@ -24,8 +27,8 @@ services:
       - 127.0.0.1
       - 9.9.9.9
     ports:
-      - "53:53/tcp"
-      - "53:53/udp"
+      - "10.0.0.7:53:53/tcp" #Need to do it this way to get around port 53 in use error
+      - "10.0.0.7:53:53/udp" #Need to do it this way to get around port 53 in use error
       - "67:67/udp"
       - "8880:80/tcp"
       - "8843:443/tcp"
