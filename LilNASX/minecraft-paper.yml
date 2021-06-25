@@ -13,6 +13,7 @@ services:
       - MEMORY=2G
       - ANNOUNCE_PLAYER_ACHIEVEMENTS=true
       - TYPE=PAPER
+      - TZ=America/New_York
     ports:
       - 25565:25565
     volumes:

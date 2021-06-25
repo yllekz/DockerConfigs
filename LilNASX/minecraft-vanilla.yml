@@ -12,6 +12,7 @@ services:
       - VERSION=LATEST
       - MEMORY=2G
       - ANNOUNCE_PLAYER_ACHIEVEMENTS=true
+      - TZ=America/New_York
     ports:
       - 25565:25565
     volumes:
