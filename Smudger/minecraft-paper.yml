@@ -7,11 +7,11 @@
 version: "2"
 services:
   minecraft-server:
-    image: itzg/minecraft-server:multiarch
+    image: itzg/minecraft-server:multiarch-latest
     container_name: minecraft
     environment:
       - EULA=TRUE
-      - VERSION=1.16.5 #LATEST is supported but Paper version may lag behind so hardcode this
+      - VERSION=1.17.1 #LATEST is supported but Paper version may lag behind so hardcode this
       - MEMORY=2G #"1G" by default, can be used to adjust both initial (Xms) and max (Xmx) memory heap settings of the JVM
       - INIT_MEMORY=1G #independently sets the initial heap size
       - MAX_MEMORY=2G #independently sets the max heap size
